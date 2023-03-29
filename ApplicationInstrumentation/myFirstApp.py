@@ -1,8 +1,8 @@
-import http.server
+from http.server import BaseHTTPRequestHandler, HTTPServer
 from prometheus_client import start_http_server
 
 
-class HandleRequests(http.server.BaseHTTPRequestHandler):
+class HandleRequests(BaseHTTPRequestHandler):
     def do_Get(self):
         self.send_response(200)
         self.send_header("Content-type", "text/html")
@@ -12,5 +12,5 @@ class HandleRequests(http.server.BaseHTTPRequestHandler):
 
         if __name__ == "__main__":
             start_http_server(5001)
-            server = http.server.HTTPServer(('localhost',5000), HandleRequests)
+            server = HTTPServer(('localhost',5000), HandleRequests)
             server.serve_forever()
